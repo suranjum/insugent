@@ -1,0 +1,47 @@
+name: insugent
+description: A Companion App for Insurance Agents
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.0
+  flutter_launcher_icons: ^0.8.1
+  shared_preferences: ^0.5.12
+  http: ^0.12.2
+  intl: ^0.16.1
+  adaptive_breakpoints: ^0.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "res/insugent.png"
+
+# The following section is specific to Flutter.
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - res/insugent.png
+
+  fonts:
+    - family: Ubuntu
+      fonts:
+        - asset: res/Ubuntu-Light.ttf
+        - asset: res/Ubuntu-Regular.ttf
+
+    - family:  outline_material_icons
+      fonts:
+        - asset: res/outline_material_icons.ttf
