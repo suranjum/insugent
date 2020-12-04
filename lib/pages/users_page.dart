@@ -63,7 +63,7 @@ class _UsersPageState extends State<UsersPage> {
         if (value) {
           Navigator.pop(context);
           loadUsers();
-          _scaffoldKey.currentState.showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Updated successfully!'),
             duration: Duration(seconds: 3),
           ));
@@ -83,7 +83,7 @@ class _UsersPageState extends State<UsersPage> {
       if (value) {
         Navigator.pop(context);
         loadUsers();
-        _scaffoldKey.currentState.showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Deleted successfully!'),
           duration: Duration(seconds: 3),
         ));

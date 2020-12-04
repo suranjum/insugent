@@ -97,7 +97,7 @@ class _BrandsPageState extends State<BrandsPage> {
             FlatButton.icon(
               icon: Icon(LineIcons.check),
               label: Text('Save'),
-              // onPressed: () => _saveSchool(),
+              onPressed: () {},
             ),
           ],
         ),
