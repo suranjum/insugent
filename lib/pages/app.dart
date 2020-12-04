@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:insugent/helpers/adaptive.dart';
-import 'package:insugent/helpers/appsettings.dart';
 import 'package:insugent/helpers/my_flutter_app_icons.dart';
 import 'package:insugent/pages/brands_page.dart';
 import 'package:insugent/pages/clients_page.dart';
 import 'package:insugent/pages/dash_page.dart';
-import 'package:insugent/pages/products_page.dart';
+import 'package:insugent/pages/users_page.dart';
+
+import '../constants.dart';
 
 class App extends StatefulWidget {
   @override
@@ -30,7 +31,7 @@ class _AppState extends State<App> {
 
   Widget _appBar() {
     return AppBar(
-      title: Text(AppSettings.appName),
+      title: Text(kAppName),
       centerTitle: true,
     );
   }
@@ -52,7 +53,7 @@ class _AppState extends State<App> {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: AppSettings.accentColor.withOpacity(0.5),
+              color: kPrimaryColor.withOpacity(0.5),
             ),
             child: Stack(
               children: [
@@ -78,12 +79,12 @@ class _AppState extends State<App> {
                     builder: (BuildContext context) => new BrandsPage())),
           ),
           ListTile(
-            leading: Icon(LineIcons.fileCopy),
-            title: Text('Products'),
+            leading: Icon(LineIcons.verifiedUser),
+            title: Text('Users'),
             onTap: () => Navigator.push(
                 context,
                 new MaterialPageRoute(
-                    builder: (BuildContext context) => new ProductsPage())),
+                    builder: (BuildContext context) => new UsersPage())),
           ),
         ],
       ),

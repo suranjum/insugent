@@ -18,6 +18,7 @@ dependencies:
   http: ^0.12.2
   intl: ^0.16.1
   adaptive_breakpoints: ^0.0.3
+  url_launcher: ^5.7.10
 
 dev_dependencies:
   flutter_test:
@@ -37,11 +38,6 @@ flutter:
     - res/insugent.png
 
   fonts:
-    - family: Ubuntu
-      fonts:
-        - asset: res/Ubuntu-Light.ttf
-        - asset: res/Ubuntu-Regular.ttf
-
     - family:  outline_material_icons
       fonts:
         - asset: res/outline_material_icons.ttf

@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:insugent/helpers/appsettings.dart';
+import 'package:insugent/constants.dart';
 import 'package:insugent/models/insurance_brands_model.dart';
 
 class InsuranceBrandApiProvider {
   static Future<List<InsuranceBrand>> fetchInsuranceBrands(Map _post) async {
     try {
       var response = await http.Client()
-          .post(AppSettings.baseUrl + "getInsuranceBrands", body: _post);
+          .post(kBaseUrl + "getInsuranceBrands", body: _post);
       if (response.statusCode == 200) {
         String result = response.body;
         if (result.contains("{")) {
