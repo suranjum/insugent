@@ -18,6 +18,7 @@ ThemeData theme() {
           fontSize: 22,
           color: Colors.black,
         ))),
+    inputDecorationTheme: inputDecorationTheme(),
     iconTheme: IconThemeData(color: Colors.blue),
   );
 }
@@ -39,6 +40,22 @@ ThemeData themeDark() {
           fontSize: 22,
           color: Colors.white,
         ))),
+    inputDecorationTheme: inputDecorationTheme(),
     iconTheme: IconThemeData(color: Colors.blue),
+  );
+}
+
+InputDecorationTheme inputDecorationTheme() {
+  // OutlineInputBorder outlineInputBorder = OutlineInputBorder(
+  //   borderRadius: BorderRadius.circular(15),
+  //   borderSide: BorderSide(color: kTextColor),
+  //   gapPadding: 10,
+  // );
+  return InputDecorationTheme(
+    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+    // enabledBorder: outlineInputBorder,
+    // focusedBorder: outlineInputBorder,
+    // border: outlineInputBorder,
+    filled: true,
   );
 }

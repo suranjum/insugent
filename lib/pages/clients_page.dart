@@ -186,7 +186,6 @@ class _ClientsPageState extends State<ClientsPage> {
                     textCapitalization: TextCapitalization.words,
                     decoration: InputDecoration(
                       labelText: 'Name',
-                      filled: true,
                     ),
                   ),
                   SizedBox(
@@ -198,8 +197,6 @@ class _ClientsPageState extends State<ClientsPage> {
                     maxLines: 4,
                     decoration: InputDecoration(
                       labelText: 'Address',
-                      alignLabelWithHint: true,
-                      filled: true,
                     ),
                   ),
                   SizedBox(
@@ -211,7 +208,6 @@ class _ClientsPageState extends State<ClientsPage> {
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       labelText: 'Mobile',
-                      filled: true,
                     ),
                   ),
                   SizedBox(
@@ -223,7 +219,6 @@ class _ClientsPageState extends State<ClientsPage> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       labelText: 'E-Mail',
-                      filled: true,
                     ),
                   ),
                   SizedBox(
@@ -236,7 +231,6 @@ class _ClientsPageState extends State<ClientsPage> {
                     decoration: InputDecoration(
                       labelText: 'Remarks',
                       alignLabelWithHint: true,
-                      filled: true,
                     ),
                   ),
                 ],

@@ -8,7 +8,6 @@ import 'package:insugent/helpers/my_flutter_app_icons.dart';
 import 'package:insugent/helpers/utility.dart';
 import 'package:insugent/models/users_model.dart';
 import 'package:insugent/providers/users_api_provider.dart';
-import 'package:insugent/widgets/textfield_themed.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UsersPage extends StatefulWidget {
@@ -290,75 +289,96 @@ class _UsersPageState extends State<UsersPage> {
         return new Scaffold(
           appBar: AppBar(
             title: Text('Edit'),
-            actions: [
-              FlatButton.icon(
-                icon: Icon(LineIcons.check),
-                label: Text('Save'),
-                onPressed: () => _saveUser(),
-              ),
-            ],
           ),
           body: SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.all(15.0),
               child: Column(
                 children: [
-                  RSTextField(
-                    hint: 'Name',
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      suffixIcon: Icon(LineIcons.person),
+                    ),
                     maxLength: 50,
                     controller: _nameController,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 10.0),
-                    child: TextField(
-                      controller: _addressController,
-                      maxLength: 250,
-                      maxLines: 3,
-                      textCapitalization: TextCapitalization.words,
-                      decoration: InputDecoration(
-                        labelText: 'Address',
-                        alignLabelWithHint: true,
-                        filled: true,
-                      ),
-                    ),
+                  SizedBox(
+                    height: 15.0,
                   ),
-                  RSTextField(
-                    hint: 'Mobile',
+                  TextField(
+                    controller: _addressController,
+                    maxLength: 250,
+                    maxLines: 3,
+                    textCapitalization: TextCapitalization.words,
+                    decoration: InputDecoration(
+                        labelText: 'Address',
+                        suffixIcon: Icon(LineIcons.locationCity)),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Mobile',
+                      suffixIcon: Icon(LineIcons.phoneAndroid),
+                    ),
                     controller: _mobileController,
-                    type: TextInputType.phone,
+                    keyboardType: TextInputType.phone,
                     maxLength: 15,
                   ),
-                  RSTextField(
-                    hint: 'E-Mail',
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                        labelText: 'E-Mail', suffixIcon: Icon(LineIcons.email)),
                     controller: _emailController,
                     maxLength: 250,
-                    type: TextInputType.emailAddress,
+                    keyboardType: TextInputType.emailAddress,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 10.0),
-                    child: TextField(
-                      controller: _expiredateController,
-                      maxLength: 15,
-                      readOnly: true,
-                      decoration: InputDecoration(
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  TextField(
+                    controller: _expiredateController,
+                    maxLength: 15,
+                    readOnly: true,
+                    decoration: InputDecoration(
                         labelText: 'Expire Date',
-                        filled: true,
-                      ),
-                      onTap: () async {
-                        var date = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1900),
-                          lastDate: DateTime(2100),
-                        );
-                        if (date != null)
-                          _expiredateController.text =
-                              date.toString().substring(0, 10);
-                      },
-                    ),
+                        suffixIcon: Icon(LineIcons.calendarToday)),
+                    onTap: () async {
+                      var date = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2100),
+                      );
+                      if (date != null)
+                        _expiredateController.text =
+                            date.toString().substring(0, 10);
+                    },
                   ),
+                ],
+              ),
+            ),
+          ),
+          bottomNavigationBar: BottomAppBar(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FlatButton.icon(
+                    icon: Icon(LineIcons.check),
+                    label: Text('Save'),
+                    onPressed: () => _saveUser(),
+                  ),
+                  FlatButton.icon(
+                    icon: Icon(LineIcons.close),
+                    label: Text('Cancel'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  )
                 ],
               ),
             ),
