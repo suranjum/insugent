@@ -36,6 +36,7 @@ flutter:
 
   assets:
     - res/insugent.png
+    - res/google.png
 
   fonts:
     - family:  outline_material_icons

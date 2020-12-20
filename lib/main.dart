@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insugent/constants.dart';
-import 'package:insugent/pages/app.dart';
+import 'package:insugent/pages/splash.dart';
 import 'package:insugent/theme.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: kAppName,
       theme: theme(),
       darkTheme: themeDark(),
-      home: App(),
+      home: Splash(),
     );
   }
 }

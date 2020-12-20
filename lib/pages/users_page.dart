@@ -351,7 +351,7 @@ class _UsersPageState extends State<UsersPage> {
                       var date = await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
+                        firstDate: DateTime(2019),
                         lastDate: DateTime(2100),
                       );
                       if (date != null)

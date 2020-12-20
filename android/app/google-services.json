@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "845071949660",
+    "project_id": "rosft-insugent",
+    "storage_bucket": "rosft-insugent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845071949660:android:e1cd448a05ec73f16b2b99",
+        "android_client_info": {
+          "package_name": "com.rsoft.insugent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845071949660-mcv8v27udcg9ncjiehl261gjiebm01dj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC5UUvjh_BnLrEMGakQiYq45v7lw58ZUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845071949660-mcv8v27udcg9ncjiehl261gjiebm01dj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
