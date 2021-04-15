@@ -4,6 +4,7 @@ import 'package:insugent/pages/splash.dart';
 import 'package:insugent/theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 

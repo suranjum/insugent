@@ -1,0 +1,12 @@
+{
+    "brands": [
+        {
+            "brandname": "LIC of India",
+            "brandcode": "lic"
+        },
+        {
+            "brandname": "Bharathi AXA",
+            "brandcode": "baxa"
+        }
+    ]
+}

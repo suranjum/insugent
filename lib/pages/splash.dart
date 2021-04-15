@@ -23,13 +23,6 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [kPrimaryColor, kAccentColor],
-          ),
-        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -46,10 +39,7 @@ class _SplashState extends State<Splash> {
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
                   kAppName,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.w200),
+                  style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w300),
                 ),
               ),
             ],

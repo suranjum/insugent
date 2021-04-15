@@ -6,8 +6,8 @@ import 'package:insugent/models/users_model.dart';
 class UsersApiProvider {
   static Future<List<User>> fetchUsers(Map _post) async {
     try {
-      var response =
-          await http.Client().post(kBaseUrl + "getUsers", body: _post);
+      var response = await http.Client()
+          .post(Uri.parse(kBaseUrl + "getUsers"), body: _post);
       if (response.statusCode == 200) {
         String result = response.body;
         if (result.contains("{")) {
@@ -29,8 +29,8 @@ class UsersApiProvider {
 
   static Future<int> fetchCount(Map _post) async {
     try {
-      var response =
-          await http.Client().post(kBaseUrl + "getUsersCount", body: _post);
+      var response = await http.Client()
+          .post(Uri.parse(kBaseUrl + "getUsersCount"), body: _post);
       if (response.statusCode == 200) {
         String result = response.body;
         int parsed = int.parse(result);
@@ -47,8 +47,8 @@ class UsersApiProvider {
 
   static Future<bool> updateUser(Map _post) async {
     try {
-      var response =
-          await http.Client().post(kBaseUrl + "updateUser", body: _post);
+      var response = await http.Client()
+          .post(Uri.parse(kBaseUrl + "updateUser"), body: _post);
       if (response.statusCode == 200) {
         String result = response.body;
         if (result.contains("SUCCESS")) {
@@ -69,8 +69,8 @@ class UsersApiProvider {
 
   static Future<bool> deleteUser(Map _post) async {
     try {
-      var response =
-          await http.Client().post(kBaseUrl + "deleteUser", body: _post);
+      var response = await http.Client()
+          .post(Uri.parse(kBaseUrl + "deleteUser"), body: _post);
       if (response.statusCode == 200) {
         String result = response.body;
         if (result.contains("SUCCESS")) {

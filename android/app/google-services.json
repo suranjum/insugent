@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "845071949660",
-    "project_id": "rosft-insugent",
-    "storage_bucket": "rosft-insugent.appspot.com"
+    "project_number": "841478596615",
+    "project_id": "insugent-rsoft",
+    "storage_bucket": "insugent-rsoft.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:845071949660:android:e1cd448a05ec73f16b2b99",
+        "mobilesdk_app_id": "1:841478596615:android:3c76a7600bec2b1be6e2a2",
         "android_client_info": {
           "package_name": "com.rsoft.insugent"
         }
       },
       "oauth_client": [
         {
-          "client_id": "845071949660-mcv8v27udcg9ncjiehl261gjiebm01dj.apps.googleusercontent.com",
+          "client_id": "841478596615-ggf9cj85rbcn0qdn60gr893gm411rcpa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rsoft.insugent",
+            "certificate_hash": "a095628e8510a54b38e9a7bca6ae4fc8f232a4fa"
+          }
+        },
+        {
+          "client_id": "841478596615-ia31oi59d4cg3fvtudl4to00m78ioevd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAC5UUvjh_BnLrEMGakQiYq45v7lw58ZUI"
+          "current_key": "AIzaSyBtWayy-JOw699pPgvbqXQ7u-dr1PV_Dog"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "845071949660-mcv8v27udcg9ncjiehl261gjiebm01dj.apps.googleusercontent.com",
+              "client_id": "841478596615-ia31oi59d4cg3fvtudl4to00m78ioevd.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

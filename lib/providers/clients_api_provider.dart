@@ -6,8 +6,8 @@ import 'package:insugent/models/clients_model.dart';
 class ClientsApiProvider {
   static Future<List<Client>> fetchClients(Map _post) async {
     try {
-      var response =
-          await http.Client().post(kBaseUrl + "getClients", body: _post);
+      var response = await http.Client()
+          .post(Uri.parse(kBaseUrl + "getClients"), body: _post);
       if (response.statusCode == 200) {
         String result = response.body;
         if (result.contains("{")) {
@@ -29,8 +29,8 @@ class ClientsApiProvider {
 
   static Future<int> fetchCount(Map _post) async {
     try {
-      var response =
-          await http.Client().post(kBaseUrl + "getClientsCount", body: _post);
+      var response = await http.Client()
+          .post(Uri.parse(kBaseUrl + "getClientsCount"), body: _post);
       if (response.statusCode == 200) {
         String result = response.body;
         int parsed = int.parse(result);
@@ -47,8 +47,8 @@ class ClientsApiProvider {
 
   static Future<bool> updateClient(Map _post) async {
     try {
-      var response =
-          await http.Client().post(kBaseUrl + "updateClient", body: _post);
+      var response = await http.Client()
+          .post(Uri.parse(kBaseUrl + "updateClient"), body: _post);
       if (response.statusCode == 200) {
         String result = response.body;
         if (result.contains("SUCCESS")) {
@@ -69,8 +69,8 @@ class ClientsApiProvider {
 
   static Future<bool> deleteClient(Map _post) async {
     try {
-      var response =
-          await http.Client().post(kBaseUrl + "deleteClient", body: _post);
+      var response = await http.Client()
+          .post(Uri.parse(kBaseUrl + "deleteClient"), body: _post);
       if (response.statusCode == 200) {
         String result = response.body;
         if (result.contains("SUCCESS")) {
@@ -91,8 +91,8 @@ class ClientsApiProvider {
 
   static Future<bool> activateClient(Map _post) async {
     try {
-      var response =
-          await http.Client().post(kBaseUrl + "activateClient", body: _post);
+      var response = await http.Client()
+          .post(Uri.parse(kBaseUrl + "activateClient"), body: _post);
       if (response.statusCode == 200) {
         String result = response.body;
         if (result.contains("SUCCESS")) {
