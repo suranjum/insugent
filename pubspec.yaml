@@ -42,8 +42,3 @@ flutter:
     - res/insugent.png
     - res/google.png
     - res/brands.json
-
-  fonts:
-    - family:  outline_material_icons
-      fonts:
-        - asset: res/outline_material_icons.ttf

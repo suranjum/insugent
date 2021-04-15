@@ -1,90 +1,75 @@
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:insugent/helpers/my_flutter_app_icons.dart';
-import 'package:insugent/models/clients_model.dart';
-import 'package:insugent/providers/clients_api_provider.dart';
+import 'package:insugent/helpers/utility.dart';
 
 class ClientsPage extends StatefulWidget {
+  final String userId;
+
+  ClientsPage({this.userId});
+
   @override
   _ClientsPageState createState() => _ClientsPageState();
 }
 
 class _ClientsPageState extends State<ClientsPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  StreamController<List<Client>> _clientController;
+
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _addressController = new TextEditingController();
   TextEditingController _mobileController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _remarksController = new TextEditingController();
+  TextEditingController _dobController = new TextEditingController();
 
   bool isDesktop = false;
   bool isWeb = false;
   String currentClientId = "";
 
-  loadClients() async {
-    Map<String, String> post = {
-      'postdata': jsonEncode({'qry': '', 'sort': 'client_name', 'pn': '0'})
-    };
-    ClientsApiProvider.fetchClients(post).then((res) async {
-      _clientController.add(res);
-      return res;
-    });
+  initFirestore() async {
+    await Firebase.initializeApp();
   }
 
   @override
   void initState() {
-    _clientController = new StreamController();
-    loadClients();
+    initFirestore();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    isWeb = kIsWeb;
+    Query query = FirebaseFirestore.instance.collection('clients');
 
     return Scaffold(
       key: _scaffoldKey,
-      body: StreamBuilder<List<Client>>(
-        stream: _clientController.stream,
-        builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error);
+      body: StreamBuilder<QuerySnapshot>(
+        stream: query.snapshots(),
+        builder: (context, stream) {
+          if (stream.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
           }
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data.length,
+          if (stream.hasError) {
+            return Center(child: Text(stream.error.toString()));
+          }
+          QuerySnapshot querySnapshot = stream.data;
+          return ListView.builder(
+              itemCount: querySnapshot.size,
               itemBuilder: (context, index) {
-                var client = snapshot.data[index];
                 return ListTile(
-                  onTap: () => _showClient(context, client),
-                  title: Text(client.clientName),
-                  subtitle: Text(
-                    client.clientAddress,
-                    overflow: TextOverflow.ellipsis,
+                  onTap: () => _showClient(context, querySnapshot.docs[index]),
+                  leading: CircleAvatar(
+                    child: Text(Utility.getInitials(
+                        querySnapshot.docs[index]['client_name'])),
                   ),
-                  isThreeLine: true,
+                  title: Text(querySnapshot.docs[index]['client_name']),
+                  subtitle: Text(querySnapshot.docs[index]['client_mobile']),
                 );
-              },
-            );
-          } else {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              return Center(
-                child: Text('No data.'),
-              );
-            }
-          }
+              });
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(LineIcons.add),
+        child: Icon(CupertinoIcons.plus),
         tooltip: 'New',
         onPressed: () {
           _showEdit(context);
@@ -93,7 +78,7 @@ class _ClientsPageState extends State<ClientsPage> {
     );
   }
 
-  void _showClient(BuildContext context, Client _client) {
+  void _showClient(BuildContext context, DocumentSnapshot doc) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -106,52 +91,48 @@ class _ClientsPageState extends State<ClientsPage> {
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(LineIcons.clear),
+                    icon: Icon(CupertinoIcons.clear),
                     tooltip: 'Close',
-                    onPressed: () {},
+                    onPressed: () => Navigator.pop(context),
                   ),
-                  FlatButton(
+                  TextButton(
                     child: Text('Edit'),
                     onPressed: () {},
                   ),
-                  FlatButton(
-                    child: Text('De-ctvate'),
-                    onPressed: () {},
-                  ),
-                  FlatButton(
+                  TextButton(
                     child: Text('Delete'),
                     onPressed: () {},
                   ),
                 ],
               ),
               ListTile(
-                leading: Icon(LineIcons.person),
-                title: Text(_client.clientName),
+                leading: Icon(CupertinoIcons.person),
+                title: Text(doc['client_name']),
                 subtitle: Text('Name'),
               ),
               ListTile(
-                leading: Icon(LineIcons.myLocation),
+                leading: Icon(CupertinoIcons.location),
                 title: Text(
-                  _client.clientAddress,
+                  doc['client_address'],
                   overflow: TextOverflow.ellipsis,
                 ),
                 subtitle: Text('Address'),
               ),
               ListTile(
-                leading: Icon(LineIcons.phoneAndroid),
-                title: Text(_client.clientMobile),
+                leading: Icon(CupertinoIcons.device_phone_portrait),
+                title: Text(doc['client_mobile']),
                 subtitle: Text('Mobile'),
               ),
               ListTile(
-                leading: Icon(LineIcons.email),
-                title: Text(_client.clientEmail),
+                leading: Icon(CupertinoIcons.mail),
+                title: Text(doc['client_email']),
                 subtitle: Text('E-Mail'),
               ),
               Visibility(
-                visible: _client.clientRemarks.isNotEmpty,
+                visible: doc['client_remarks'].isNotEmpty,
                 child: ListTile(
-                  leading: Icon(LineIcons.info),
-                  title: Text(_client.clientRemarks),
+                  leading: Icon(CupertinoIcons.info),
+                  title: Text(doc['client_remarks']),
                 ),
               ),
             ],
@@ -168,8 +149,8 @@ class _ClientsPageState extends State<ClientsPage> {
           appBar: AppBar(
             title: Text('Edit'),
             actions: [
-              FlatButton.icon(
-                icon: Icon(LineIcons.check),
+              TextButton.icon(
+                icon: Icon(CupertinoIcons.check_mark),
                 label: Text('Save'),
                 onPressed: () {},
               ),
@@ -220,6 +201,12 @@ class _ClientsPageState extends State<ClientsPage> {
                     decoration: InputDecoration(
                       labelText: 'E-Mail',
                     ),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  TextField(
+                    controller: _dobController,
                   ),
                   SizedBox(
                     height: 15.0,

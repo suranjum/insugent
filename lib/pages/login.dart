@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import "package:http/http.dart" as http;
-import 'package:insugent/models/users_model.dart';
-import 'package:insugent/pages/app.dart';
+import 'package:insugent/pages/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import '../constants.dart';
@@ -83,17 +80,19 @@ class _LoginState extends State<Login> {
   }
 
   Future _validateGoogleUser() async {
-    // sharedPreferences = await SharedPreferences.getInstance();
-    // setState(() {
-    //   sharedPreferences.setBool("isapplogged", true);
-    //   sharedPreferences.setString("userid", userId);
-    //   sharedPreferences.setString("useremail", _currentUser.email);
-    //   sharedPreferences.setString("userdisplayname", _currentUser.displayName);
-    //   sharedPreferences.commit();
-    // });
-    // Navigator.of(context).pushAndRemoveUntil(
-    //     new MaterialPageRoute(builder: (BuildContext context) => new App()),
-    //     (Route<dynamic> route) => false);
+    sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      sharedPreferences.setBool("isapplogged", true);
+      sharedPreferences.setString("userid", userId);
+      sharedPreferences.setString("useremail", _currentUser.email);
+      sharedPreferences.setString("userdisplayname", _currentUser.displayName);
+      sharedPreferences.setString("userimage", _currentUser.photoUrl);
+      sharedPreferences.commit();
+    });
+    Navigator.of(context).pushAndRemoveUntil(
+        new MaterialPageRoute(
+            builder: (BuildContext context) => new HomePage()),
+        (Route<dynamic> route) => false);
   }
 
   Future<void> getBrands() async {
