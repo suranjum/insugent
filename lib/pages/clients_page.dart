@@ -171,9 +171,12 @@ class _ClientsPageState extends State<ClientsPage> {
                       ),
                       TextButton(
                         child: Text('Delete'),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          deleteClient(doc.id);
+                        onPressed: () async {
+                          bool res = await confirmDelete();
+                          if (res) {
+                            Navigator.pop(context);
+                            deleteClient(doc.id);
+                          }
                         },
                       ),
                       TextButton(
@@ -361,6 +364,25 @@ class _ClientsPageState extends State<ClientsPage> {
         .delete()
         .then((value) => print("Client deleted!"))
         .catchError((error) => print("Failed to delete client: $error"));
+  }
+
+  Future<bool> confirmDelete() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Confirm'),
+            content: Text('Are you sure you want to delete?'),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text('Yes')),
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text('No')),
+            ],
+          );
+        });
   }
 
   void _launchURL(String _url) async {
