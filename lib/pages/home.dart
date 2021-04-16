@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:insugent/pages/clients_page.dart';
@@ -22,6 +23,10 @@ class _HomePageState extends State<HomePage> {
   PageController _pageController;
   int _page = 0;
 
+  initFirestore() async {
+    await Firebase.initializeApp();
+  }
+
   void onPageChanged(int page) {
     setState(() {
       this._page = page;
@@ -43,10 +48,67 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget _appBar() {
-    return AppBar(
-      title: Text(kAppName),
-      centerTitle: true,
+  void showAccounts(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          height: MediaQuery.of(context).size.height * .4,
+          margin: EdgeInsets.only(left: 5, right: 5, bottom: 5),
+          child: Card(
+            child: ListView(
+              children: [
+                ListTile(
+                  leading: userImage.isNotEmpty
+                      ? ClipRRect(
+                          child: Image.network(
+                            userImage,
+                            width: 50,
+                          ),
+                          borderRadius: BorderRadius.circular(50),
+                        )
+                      : CircleAvatar(
+                          child: Icon(CupertinoIcons.person),
+                        ),
+                  title: Text(userDisplayName),
+                  subtitle: Text(userEmail),
+                  onTap: () {},
+                ),
+                Divider(),
+                ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.red[100],
+                    foregroundColor: Colors.red,
+                    child: Icon(CupertinoIcons.wrench),
+                  ),
+                  title: Text('Settings'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.blue[100],
+                    foregroundColor: Colors.blue,
+                    child: Icon(CupertinoIcons.checkmark_shield),
+                  ),
+                  title: Text('Privacy Policy'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    foregroundColor: Colors.grey,
+                    child: Icon(CupertinoIcons.info),
+                  ),
+                  title: Text('About'),
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -58,34 +120,6 @@ class _HomePageState extends State<HomePage> {
       ],
       onPageChanged: onPageChanged,
       controller: _pageController,
-    );
-  }
-
-  Widget _drawer() {
-    return Drawer(
-      child: ListView(
-        children: [
-          UserAccountsDrawerHeader(
-            accountName: Text(userDisplayName),
-            accountEmail: Text(userEmail),
-            currentAccountPicture: userImage.isNotEmpty
-                ? ClipRRect(
-                    child: Image.network(
-                      userImage,
-                    ),
-                    borderRadius: BorderRadius.circular(50.0),
-                  )
-                : CircleAvatar(
-                    child: Icon(CupertinoIcons.person),
-                  ),
-          ),
-          ListTile(
-            leading: Icon(CupertinoIcons.person_2),
-            title: Text('Clients'),
-            onTap: () {},
-          ),
-        ],
-      ),
     );
   }
 
@@ -105,6 +139,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    initFirestore();
     getPrefs();
     _pageController = new PageController();
   }
@@ -112,8 +147,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(),
-      drawer: _drawer(),
+      appBar: AppBar(
+        title: Text(
+          kAppName,
+          style: TextStyle(fontWeight: FontWeight.w300),
+        ),
+        actions: [
+          userImage.isNotEmpty
+              ? IconButton(
+                  icon: ClipRRect(
+                    child: Image.network(
+                      userImage,
+                    ),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  onPressed: () => showAccounts(context),
+                )
+              : CircleAvatar(
+                  child: Icon(CupertinoIcons.person),
+                ),
+        ],
+      ),
       body: _body(),
       bottomNavigationBar: _bottomBar(),
     );
