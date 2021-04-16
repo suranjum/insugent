@@ -35,7 +35,9 @@ class _ClientsPageState extends State<ClientsPage> {
 
   @override
   Widget build(BuildContext context) {
-    Query query = FirebaseFirestore.instance.collection('clients');
+    Query query = FirebaseFirestore.instance
+        .collection('clients')
+        .where('client_user_id', isEqualTo: widget.userId);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -222,6 +224,8 @@ class _ClientsPageState extends State<ClientsPage> {
                 icon: Icon(CupertinoIcons.checkmark_alt),
                 label: Text('Save'),
                 onPressed: () {
+                  if (_nameController.text.isEmpty ||
+                      _mobileController.text.isEmpty) return;
                   if (currentClientId.isEmpty)
                     addClient();
                   else
@@ -317,6 +321,7 @@ class _ClientsPageState extends State<ClientsPage> {
     var uuid = Uuid();
     return clients.add({
       'client_id': uuid.v1(),
+      'client_user_id': widget.userId,
       'client_name': _nameController.text, // John Doe
       'client_address': _addressController.text, // Stokes and Sons
       'client_mobile': _mobileController.text,

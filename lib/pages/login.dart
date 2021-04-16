@@ -72,6 +72,11 @@ class _LoginState extends State<Login> {
             'userdisplayname': _currentUser.displayName
           }).then((value) => print('User Added'));
         } else {
+          setState(() {
+            userId = value.docs.single['userid'];
+            print(userId);
+          });
+
           print('Welcome back!');
         }
         _validateGoogleUser();
@@ -87,8 +92,8 @@ class _LoginState extends State<Login> {
       sharedPreferences.setString("useremail", _currentUser.email);
       sharedPreferences.setString("userdisplayname", _currentUser.displayName);
       sharedPreferences.setString("userimage", _currentUser.photoUrl);
-      sharedPreferences.commit();
     });
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
     Navigator.of(context).pushAndRemoveUntil(
         new MaterialPageRoute(
             builder: (BuildContext context) => new HomePage()),

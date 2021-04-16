@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
       userDisplayName = sharedPreferences.getString("userdisplayname");
       userEmail = sharedPreferences.getString("useremail");
       userImage = sharedPreferences.getString("userimage");
+      print(userId);
     });
   }
 
@@ -116,7 +117,9 @@ class _HomePageState extends State<HomePage> {
     return new PageView(
       children: [
         new DashPage(),
-        new ClientsPage(),
+        new ClientsPage(
+          userId: userId,
+        ),
       ],
       onPageChanged: onPageChanged,
       controller: _pageController,
