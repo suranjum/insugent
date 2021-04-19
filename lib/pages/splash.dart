@@ -21,7 +21,7 @@ class _SplashState extends State<Splash> {
       isAppLogged = sharedPreferences.getBool("isapplogged") ?? false;
       if (isAppLogged)
         Timer(
-            Duration(seconds: 0),
+            Duration(seconds: 2),
             () => Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => HomePage())));
       else

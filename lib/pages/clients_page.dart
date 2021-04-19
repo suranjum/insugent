@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:insugent/constants.dart';
 import 'package:insugent/helpers/utility.dart';
+import 'package:insugent/pages/client_products_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
@@ -38,7 +40,7 @@ class _ClientsPageState extends State<ClientsPage> {
     Query query = FirebaseFirestore.instance
         .collection('clients')
         .where('client_user_id', isEqualTo: widget.userId);
-
+    print(widget.userId);
     return Scaffold(
       key: _scaffoldKey,
       body: StreamBuilder<QuerySnapshot>(
@@ -153,6 +155,24 @@ class _ClientsPageState extends State<ClientsPage> {
                         ),
                         title: Text(doc['client_remarks']),
                       ),
+                    ),
+                    ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: kPrimaryColor.withOpacity(0.3),
+                        foregroundColor: kPrimaryColor,
+                        child: Icon(CupertinoIcons.cube_box),
+                      ),
+                      title: Text('Products'),
+                      subtitle: Text('Manage products and dues'),
+                      trailing: Icon(CupertinoIcons.forward),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.of(context).push(new MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                new ClientProductsPage(
+                                  clientName: doc['client_name'],
+                                )));
+                      },
                     ),
                   ],
                 ),

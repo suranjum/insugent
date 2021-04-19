@@ -4,7 +4,7 @@ import 'package:insugent/constants.dart';
 
 ThemeData theme() {
   return ThemeData(
-    primarySwatch: Colors.blue,
+    primarySwatch: Colors.lightGreen,
     primaryColor: kPrimaryColor,
     accentColor: kAccentColor,
     appBarTheme: AppBarTheme(
@@ -12,7 +12,7 @@ ThemeData theme() {
         centerTitle: false,
         color: Colors.grey[50],
         iconTheme: IconThemeData(
-          color: Colors.blue,
+          color: kAccentColor,
         ),
         textTheme: TextTheme(
             headline6: TextStyle(
@@ -34,7 +34,7 @@ ThemeData themeDark() {
         centerTitle: false,
         color: Colors.transparent,
         iconTheme: IconThemeData(
-          color: Colors.blue,
+          color: kAccentColor,
         ),
         textTheme: TextTheme(
             headline6: TextStyle(
